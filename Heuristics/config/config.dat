@@ -16,5 +16,5 @@ maxNoImprovement     = 50;                       # iterations without better sol
 # --- Local Search specific parameters ------------------------------------------------------------------------
 localSearch          = True;                         # Enable local search: False / True
 neighborhoodStrategy = Exchange;                 # Supported Neighborhoods: Exchange
-policy               = BestImprovement;          # Supported Policies: FirstImprovement / BestImprovement
+policy               = BestImprovement;          # Supported Policies: BestImprovement
 

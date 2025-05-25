@@ -1,5 +1,7 @@
 # AMMM Project - Bid Matrix Problem
 
+**Authors:** Ezgi Sena Karabacak, Davide Lamagna
+
 This project consists of two main components: an Instance Generator and Heuristics solvers for the Bid Matrix Problem.
 
 ## Project Structure
@@ -101,8 +103,8 @@ The configuration file for solvers (`Heuristics/config/config.dat`) includes the
 #### Local Search Parameters (Optional)
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| neighborhoodStrategy | string | Strategy for neighborhood search | Must be one of: 'Exchange', 'Reassignment' |
-| policy | string | Policy for improvement selection | Must be one of: 'FirstImprovement', 'BestImprovement' |
+| neighborhoodStrategy | string | Strategy for neighborhood search | Only 'Exchange' is supported |
+| policy | string | Policy for improvement selection | Must be one of: 'BestImprovement' |
 
 ### Example Configuration Files
 
