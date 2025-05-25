@@ -4,6 +4,29 @@
 
 This project consists of two main components: an Instance Generator and Heuristics solvers for the Bid Matrix Problem.
 
+## Project Components
+
+### Core Components
+- **Instance Generator**: Generates problem instances with configurable parameters
+- **Heuristics**: Implements different solving algorithms for the bid matrix problem
+
+### Key Files and Directories
+
+#### Heuristics Module
+- `problem/`: Contains core problem-related classes
+  - `instance.py`: Defines the problem instance structure
+  - `solution.py`: Implements the solution representation and operations
+- `solver.py`: Abstract solver class defining the interface for all solvers
+- `ValidateConfig.py`: Validates configuration parameters for solvers
+- `validateInputData.py`: Validates input data format and structure
+
+#### Plotting Module
+- `plot/`: Contains scripts for visualizing results
+  - `main_plot.py`: Generates plots for main results
+  - `alpha_tuning_plot.py`: Visualizes GRASP alpha parameter tuning results
+  - `img/`: Directory containing generated plots
+  - CSV files for storing results and tuning data
+
 ## Project Structure
 
 ```
