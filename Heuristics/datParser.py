@@ -62,8 +62,6 @@ class DATParser(object):
         fileHandler = DATParser._openFile(filePath)
         fileContent = fileHandler.read()
         fileHandler.close()
-
-        print("Raw file content:\n", fileContent)  # NEW
         datAttr = DATAttributes()
 
         # lines not starting with <spaces>[a-zA-Z] are ignored.
@@ -91,9 +89,7 @@ class DATParser(object):
             rows = re.findall(r'\[([^\]]+)\]', body)
             matrix = []
             for row in rows:
-                elements = [DATParser._tryParse(x.strip()) for x in row.split(',') if x.strip()]
+                elements = [DATParser._tryParse(x) for x in re.split(r'[\s,]+', row.strip()) if x]
                 matrix.append(elements)
             datAttr.__dict__[name] = matrix
-
-        print("Parsed attributes:", datAttr.__dict__)  # NEW
         return datAttr

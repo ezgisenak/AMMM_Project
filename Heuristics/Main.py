@@ -64,7 +64,6 @@ if __name__ == '__main__':
     config = DATParser.parse(args.configFile)
     ValidateConfig.validate(config)
     inputData = DATParser.parse(config.inputDataFile)
-    print("Parsed keys:", inputData.__dict__.keys())
     ValidateInputData.validate(inputData)
 
     if config.verbose:

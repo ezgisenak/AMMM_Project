@@ -1,0 +1,6 @@
+instancesDirectory = output;
+fileNamePrefix = instance;
+fileNameExtension = dat;
+numInstances = 2;
+N = 41;
+maxBid = 10;

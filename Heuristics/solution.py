@@ -1,35 +1,18 @@
-"""
-AMMM Lab Heuristics
-Base representation of a solution instance
-Copyright 2020 Luis Velasco.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
-
+import networkx as nx
 from AMMMGlobals import AMMMException
 
-
-# Solution includes functions to manage the solution, to perform feasibility
-# checks and to dump the solution into a string or file.
-class _Solution(object):
-    def __init__(self):
+class Solution(object):
+    def __init__(self, N, bids):
         self.fitness = 0.0
         self.feasible = True
         self.verbose = False
+        self.graph = nx.DiGraph()
+        self.bids = bids
+        self.N = N
+        self.graph.add_nodes_from(range(N))
 
     def setVerbose(self, verbose):
-        if not isinstance(verbose, bool) or (verbose not in [True, False]):
+        if not isinstance(verbose, bool):
             raise AMMMException('verbose(%s) has to be a boolean value.' % str(verbose))
         self.verbose = verbose
 
@@ -43,7 +26,24 @@ class _Solution(object):
     def isFeasible(self):
         return self.feasible
 
-    def saveToFile(self, filePath):
-        f = open(filePath, 'w')
-        f.write(self.__str__())
-        f.close()
+    def set_priority(self, i, j, bid=None):
+        if bid is None:
+            bid = self.bids[i][j]
+        self.graph.add_edge(i, j)
+        self.fitness += bid
+
+    def clear_priorities(self):
+        self.graph.clear_edges()
+        self.fitness = 0.0
+
+    def __str__(self):
+        output = [f"Fitness: {self.fitness:.2f}", f"Feasible: {self.feasible}", "Priorities:"]
+        output += [f"{u} > {v}" for u, v in self.graph.edges()]
+        return "\n".join(output)
+
+    def clone(self):
+        new_sol = Solution(self.N, self.bids)
+        new_sol.setVerbose(self.verbose)
+        for u, v in self.graph.edges():
+            new_sol.set_priority(u, v, self.bids[u][v])
+        return new_sol

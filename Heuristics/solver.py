@@ -48,13 +48,3 @@ class _Solver(object):
     def solve(self, **kwargs):
         raise NotImplementedError('Abstract method cannot be called')
 
-    def printPerformance(self):
-        if not self.config.verbose: return
-        avg_evalTimePerCandidate = 0.0
-        if self.numSolutionsConstructed != 0:
-            avg_evalTimePerCandidate = 1000.0 * self.elapsedEvalTime / float(self.numSolutionsConstructed)
-
-        print('Evaluation Performance:')
-        print('  Num. solutions constructed', self.numSolutionsConstructed)
-        print('  Total Eval. Time     ', self.elapsedEvalTime, 's')
-        print('  Avg. Time / solution', avg_evalTimePerCandidate, 'ms')

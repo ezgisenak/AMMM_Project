@@ -7,7 +7,7 @@ class Instance(object):
         self.bids = inputData.m  # N x N bid matrix (list of lists)
 
     def createSolution(self):
-        return Solution(self.N)
+        return Solution(self.N, self.bids)
 
     def checkInstance(self):
         # Optional: ensure input matrix is valid (e.g., zeros on diagonal)

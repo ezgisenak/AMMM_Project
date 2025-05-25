@@ -1,19 +1,20 @@
 # --- Common specific parameters ------------------------------------------------------------------------------
-inputDataFile        = data/project.4.dat;        # Input DAT file
-solutionFile         = solutions/project4.sol;   # Output DAT file (solution)
-solver               = Greedy;                  # Supported solvers: Greedy / Random / GRASP
-maxExecTime          = 60;                      # Maximum execution time in seconds
-verbose              = True;                    # Verbose mode?
+inputDataFile        =../InstanceGenerator/output/instance41_2.dat;        # Input DAT file
+solutionFile         = solutions/instance41_2.sol;   # Output DAT file (solution)
+solver               = GRASP;                     # Supported solvers: Greedy / GRASP
+maxExecTime          = 60;                        # Maximum execution time in seconds
+verbose              = True;                      # Verbose mode?
 
 # --- Greedy / Random specific parameters ---------------------------------------------------------------------
 # No specific parameters
 
 # --- GRASP constructive specific parameters ------------------------------------------------------------------
 # Ignored if solver is not GRASP.
-alpha                = 1.0;                 # Alpha parameter for the GRASP solver.
+alpha                = 0.1;                      # Alpha parameter for the GRASP solver.
+maxNoImprovement     = 50;                       # iterations without better solution
 
 # --- Local Search specific parameters ------------------------------------------------------------------------
-localSearch          = True;                # Enable local search?
-neighborhoodStrategy = TaskExchange;        # Supported Neighborhoods: TaskExchange
-policy               = FirstImprovement;    # Supported Policies: FirstImprovement / BestImprovement
+localSearch          = True;                         # Enable local search: False / True
+neighborhoodStrategy = Exchange;                 # Supported Neighborhoods: Exchange
+policy               = BestImprovement;          # Supported Policies: FirstImprovement / BestImprovement
 

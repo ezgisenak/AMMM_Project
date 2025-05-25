@@ -1,17 +1,16 @@
 import networkx as nx
 import time
 from Heuristics.solver import _Solver
+from Heuristics.solvers.localSearch import LocalSearch
 
 class Solver_Greedy(_Solver):
     def __init__(self, config, instance):
         super().__init__(config, instance)
 
     def construction(self):
-        self.startTimeMeasure()
         N = self.instance.N
-        bids = self.instance.bids  # N x N bid matrix
+        bids = self.instance.bids
 
-        # Generate candidate edges: (i, j, bid)
         edges = [(i, j, bids[i][j]) for i in range(N) for j in range(N) if i != j and bids[i][j] > 0]
         edges.sort(key=lambda x: x[2], reverse=True)
 
@@ -26,16 +25,25 @@ class Solver_Greedy(_Solver):
             else:
                 G.remove_edge(i, j)
 
-        # Build the solution
         solution = self.instance.createSolution()
         for i, j, bid in selected_edges:
             solution.set_priority(i, j, bid)
 
-        self.elapsedEvalTime = time.time() - self.startTime
-        self.numSolutionsConstructed = 1
-        self.writeLogLine(solution.getFitness(), 1)
-        self.printPerformance()
         return solution
 
+    
     def solve(self, **kwargs):
-        return self.construction()
+        self.startTimeMeasure()
+
+        solution = self.construction()
+
+        if self.config.localSearch:
+            localSearch = LocalSearch(self.config, self.instance)
+            endTime = self.startTime + self.config.maxExecTime
+            solution = localSearch.solve(solution=solution, startTime=self.startTime, endTime=endTime)
+
+        self.elapsedEvalTime = time.time() - self.startTime
+        self.writeLogLine(solution.getFitness(), 1)  
+        self.numSolutionsConstructed = 1
+        return solution
+
